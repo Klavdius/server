@@ -19,6 +19,15 @@ if($_POST != null) {
     echo "Добро пожаловать, Гость" . PHP_EOL;
 }
 
+$db = new mysqli('127.0.0.1', 'root', null, 'test');
+
+$result = $db->query('SELECT *, name FROM scroll');
+
+$fetch = $result->fetch_all(MYSQLI_ASSOC);
+
+
+
+echo $fetch[1] . PHP_EOL;
 
 ?>
 
@@ -27,6 +36,7 @@ if($_POST != null) {
     <input name="login" type="text">
     <input name="password" type="text">
     <input name="cmd" value="отправить" type="submit">
+
 </form>
 
 
