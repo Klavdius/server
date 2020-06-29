@@ -1,8 +1,20 @@
 <?php
 	echo "Привет о дивный мир <br/>";
-	//echo "<br/>";
+	/*****************************************************************/
+	//прочитать из XML файла данные и использовать их в подключении бд
 	
-	$db = new mysqli('127.0.0.1', 'root', null, 'test');
+	$block = simplexml_load_file('settings.xml');
+
+	//echo $block->DB->HOST;
+	
+	$myHost = $block->DB->HOST;
+	$myName = $block->DB->USERNAME;
+	$myPass = $block->DB->PASSWORD;
+	$myDB = $block->DB->DB_NAME;
+	
+	$db = new mysqli($myHost, $myName, $myPass, $myDB);
+	
+	/*************************************************************/
 	
 	if( $db->connect_errno){
 		echo "Нет соединения <br/>" . PHP_EOL;
