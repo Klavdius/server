@@ -9,7 +9,7 @@ $myChek = htmlentities ($_POST['chek']);
 	 echo "Вы ввели не один <br/>";
 }
 */
-echo $myChek . "<br/>";
+echo $myChek . "<br/>";  //получили переменную
 //conect db
 /********************************/
 	$jsData = file_get_contents('conf.json');
@@ -28,11 +28,27 @@ if( $db->connect_errno){
 
 $fileOp = fopen('fullStroka.csv' , 'w+');
 
-$userName = $db->query("SELECT * FROM users WHERE id_user = '$myChek ' ");
-$user = $userName->fetch_row();
-fputcsv($fileOp, $user);
-fclose($fileOp);
+$cardUser = $db->query("SELECT * FROM card_user WHERE idCardUser = '$myChek ' "); //получили нужную строку
+$card = $cardUser->fetch_array(MYSQLI_NUM);
 
-$arrayU = mysql_fetch_array($userName , MSQL_ASSOC);
-echo $arrayU['name'];
+fputcsv($fileOp, $card);
+//fputcsv($fileOp, $user[0]);
+//fclose($fileOp);
+$a = $card[1];
+$b = $card[2];
+$userName = $mysqlUser->query("SELECT * FORM users WHERE idUser = '$a' ");
+$subUser = $mysqlSub->query("SELECT * FROM subscription WHERE idSub = '$b' ");
+
+$fullName = $userName->fetch_array(MYSQLI_NUM);
+$subMan = $subUser->fetch_array(MYSQLI_NUM);
+
+printf(" %s %s %s с тарифом %s <br/>",$fullName[1],$fullName[2],$fullName[3],$subMan[1]);
+
+//$goCsv = "$fullName['name'],$fullName['lastName'],$fullName['middleName'],$subMan['nameSub']";
+//fptcsv($fileOp, $goCvs);
+fclose($fileOp);
+//$arrayU = mysql_fetch_array($userName , MSQL_ASSOC);
+printf(" %s <br/>", $card['idCardUser']);
 ?>
+
+
