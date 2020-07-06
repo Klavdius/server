@@ -11,5 +11,27 @@
 		<input type=text name="chek"> 
 		<input type=submit value="Запросить">
 	</form>
- <body>
+	<form action="creat.php" method="POST">
+		<br/>
+		<h1> Запись нового пользователя</h1>
+		<label name="label3"> Имя <br/></lable>
+		<input type=text name="nameNew">
+		<br/>
+		<label name="label4"> Фамилия <br/></lable>
+		<input type=text name="lastNew">
+		<br/>
+		<label name="label5"> Отчество <br/></lable>
+		<input type=text name="middleNew">
+		<br/>
+		<label name="tarif"> Тариф <br/></lable>
+		<select size="3" required name="selSub">
+		   <option>Только зал</option>
+		   <option>Только бассейн</option>
+		   <option>Зал + бассейн</option>
+		</select>
+		<br/>
+		<input type=submit value="Записать">
+	</form>
+ </body>
+ 
 </html>
