@@ -9,8 +9,9 @@ $db = new mysqli($jsArrData["host"] , $jsArrData["name"] , $jsArrData["password"
 /******/
 
 //$joinSelect = $db->query("SELECT * FROM users INNER JOIN subscription using(id)");
-$joinSelect = $db->query("SELECT us.*, sub.* FROM users as us, subscription as sub, carduser as cu
-WHERE cu.idCardUser = us.id");
+$joinSelect = $db->query("SELECT cu.idCardUser, us.name, us.lastName, us.middleName, sub.nameSub 
+FROM users as us, subscription as sub, carduser as cu
+WHERE cu.idCardUser = us.id && cu.subCard = sub.id");
 //LEFT JOIN cu.nameUserCard = us.id
 //LEFT JOIN sub.id = cu.subCard
 //WHERE cu.idCardUser "); 
