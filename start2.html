@@ -1,0 +1,81 @@
+
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Запрос данных</title>
+ </head>
+ <body>
+	<form action="start.html" method="GET">
+		<br/>
+		<label name="label1"> Введите номер карты пользователя <br/></lable>
+		<input type=text name="chek"> 
+		<input type=submit value="Запросить">
+		<br/>
+		<br/>
+		 
+			<?php 
+				$jsData = file_get_contents('conf.json');
+
+				$jsArrData = json_decode($jsData, true);
+
+				$db = new mysqli($jsArrData["host"] , $jsArrData["name"] , $jsArrData["password"] , $jsArrData["db_name"]);
+			
+			$myChek = htmlspecialchars($_GET["chek"]);
+			echo  '$myChek';
+			echo  '112';
+			
+			$joinSelect = $db.query("
+					
+			SELECT
+				cu.idCardUser ,
+				us.`NAME` ,
+				us.lastName ,
+				us.middleName ,
+				sub.nameSub
+			FROM
+				carduser AS cu
+			INNER JOIN users AS us ON cu.nameUserCard = us.id
+			INNER JOIN subscription AS sub ON cu.subCard = sub.id
+			WHERE
+				cu.idCardUser = $_GET['chek'];
+				");
+				
+			foreach($joinSelect as $turbo){
+				foreach ($turbo as $value){
+				echo $value . " ";
+				$wr = json_encode($value);
+				file_put_contents('ret_join.json',$value);
+				}
+			
+			}
+			?> 
+		
+		<br/>
+	</form>
+	<form action="creat.php" method="POST">
+		<br/>
+		<h1> Запись нового пользователя</h1>
+		<label name="label3"> Имя <br/></lable>
+		<input type=text name="nameNew">
+		<br/>
+		<label name="label4"> Фамилия <br/></lable>
+		<input type=text name="lastNew">
+		<br/>
+		<label name="label5"> Отчество <br/></lable>
+		<input type=text name="middleNew">
+		<br/>
+		<label name="tarif"> Тариф <br/></lable>
+		<select size="3" required name="selSub">
+		   <option>Только зал</option>
+		   <option>Только бассейн</option>
+		   <option>Зал + бассейн</option>
+		</select>
+		<br/>
+		<input type=submit value="Записать">
+	</form>
+ </body>
+ 
+</html>
+
+
+
